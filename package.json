@@ -1,13 +1,31 @@
 {
   "name": "ng-reactive-component",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Angular Reactive Component",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": "https://github.com/kristianmandrup/ng-reactive-component",
   "license": "MIT",
-  "keywords": [],
+  "author": {
+    "name": "Kristian Mandrup",
+    "email": "kmandrup@gmail.com",
+    "url": "https://github.com/kristianmandrup"
+  },
+  "contributors": [
+      {
+          "name": "Mike Ryan",
+          "url": "https://medium.com/@MikeRyanDev"
+      }
+  ],
+  "keywords": [
+      "angular",
+      "reactive",
+      "state",
+      "component",
+      "rxjs",
+      "observer"
+  ],
   "scripts": {
     "describe": "npm-scripts-info",
     "build": "run-s clean && run-p build:*",
