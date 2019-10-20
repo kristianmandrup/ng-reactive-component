@@ -105,7 +105,8 @@ This library was built using [typescript-starter](https://github.com/bitjson/typ
 
 ### Testing
 
-The project is currently configured to use [ava](https://avajs.dev) for testing.
+The project is currently configured to use [ava](https://avajs.dev) for testing (as per the `package.json` config).
+[Jest](jestjs.io) has also been addeed and is used in the spec under development.
 
 An Angular Component test has been started but needs to be fleshed out. Please add whatever testing framework and approach most suitable.
 
