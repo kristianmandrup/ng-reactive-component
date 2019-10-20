@@ -63,14 +63,17 @@ export class AppComponent extends ReactiveComponent {
 
 ### Decorator
 
+Note that currently the typing for the decorator is "messed up". Not sure how to properly implement class decorators in typescript so that the typing for the decoration/extension is picked up.
+
+I've currently tried two approaches
+
 ```ts
-@ReactiveStateComponent
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
 import { ReactiveStateComponent, ReactiveState } from 'ng-reactive-component';
 
-@ReactiveStateComponent()
+@ReactiveStateComponent
 @Component({
   selector: 'app-root',
   template: `
@@ -88,7 +91,7 @@ import { ReactiveStateComponent, ReactiveState } from 'ng-reactive-component';
     </button>
   `
 })
-export class AppComponent implements ReactiveState {
+export class DecoratedAppComponent implements ReactiveState {
   values$ = new Subject<number>();
   state = this.connect({
     count: this.values$.pipe(
@@ -99,6 +102,15 @@ export class AppComponent implements ReactiveState {
 
   pushValue(value: number) {
     this.values$.next(value);
+  }
+
+    ngOnInit() {
+    this.ngSubjectInit()
+    this[OnInitSubject].complete();
+  }
+
+  ngOnDestroy() {
+    this.ngSubjectDestroy()
   }
 }
 ```

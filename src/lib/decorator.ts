@@ -2,7 +2,13 @@ import { OnInit, OnDestroy, ɵmarkDirty as markDirty } from '@angular/core';
 import { Observable, from, ReplaySubject, concat } from 'rxjs';
 import { mergeMap, tap, takeUntil } from 'rxjs/operators';
 
-export interface ReactiveState extends OnInit, OnDestroy {}
+export interface ReactiveState extends OnInit, OnDestroy {
+  connect<T>(sources: ObservableDictionary<T>): T;
+  onInit$(): Observable<true>;
+  onDestroy$(): Observable<true>;
+  ngSubjectInit(): void;
+  ngSubjectDestroy(): void;
+}
 
 type ObservableDictionary<T> = {
   [P in keyof T]: Observable<T[P]>;
@@ -41,13 +47,13 @@ const connect = (ctx: any) => <T>(sources: ObservableDictionary<T>): T => {
   return sink;
 };
 
-const ngSubjectInit = (ctx: any) => () => {
+const ngSubjectInit = (ctx: any) => (): void => {
   ctx = ctx || this;
   ctx[OnInitSubject].next(true);
   ctx[OnInitSubject].complete();
 };
 
-const ngSubjectDestroy = (ctx: any) => () => {
+const ngSubjectDestroy = (ctx: any) => (): void => {
   ctx = ctx || this;
   ctx[OnDestroySubject].next(true);
   ctx[OnDestroySubject].complete();
@@ -74,7 +80,7 @@ const getterMap = {
 // }
 
 // See: https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/
-const asReactive = function() {
+const asReactive = function(): ReactiveState {
   Object.keys(fnMap).map(key => {
     this[key] = fnMap[key](this);
   });
@@ -87,8 +93,11 @@ const asReactive = function() {
 
   this[OnInitSubject] = new ReplaySubject<true>(1);
   this[OnDestroySubject] = new ReplaySubject<true>(1);
+  return this;
 };
 
-export const ReactiveStateComponent = (constructorFn: Function) => {
-  asReactive.call(constructorFn.prototype);
-};
+export function ReactiveStateComponent<T>(
+  constructorFn: Function
+): ReactiveState & T {
+  return asReactive.call(constructorFn.prototype);
+}
