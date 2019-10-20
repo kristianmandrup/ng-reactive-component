@@ -1,20 +1,7 @@
-# ng-reactive-component
-
-Angular Reactive Component as proposed by [@mikeryandev](https://twitter.com/mikeryandev) in his talk [Building with Ivy: rethinking reactive Angular](https://www.youtube.com/watch?v=rz-rcaGXhGk) at AngularConnect 2019.
-
-See original repo with demo for presentation [here](https://github.com/MikeRyanDev/rethinking-reactivity-angularconnect2019)
-
-## Install
-
-`$ npm i ng-reactive-component`
-
-## Usage example
-
-```ts
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
-import { ReactiveComponent } from 'ng-reactive-component';
+import { ReactiveComponent } from '../reactive.component';
 
 @Component({
   selector: 'app-root',
@@ -46,8 +33,3 @@ export class AppComponent extends ReactiveComponent {
     this.values$.next(value);
   }
 }
-```
-
-## Development
-
-This library was built using [typescript-starter](https://github.com/bitjson/typescript-starter)
