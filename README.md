@@ -4,6 +4,10 @@ Angular Reactive Component as proposed by [@mikeryandev](https://twitter.com/mik
 
 See original repo with demo for presentation [here](https://github.com/MikeRyanDev/rethinking-reactivity-angularconnect2019)
 
+## Demo
+
+[Demo app under development](https://github.com/kristianmandrup/ng-reactive-component-demo)
+
 ## Install
 
 `$ npm i ng-reactive-component`
