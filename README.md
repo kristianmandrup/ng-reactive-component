@@ -104,16 +104,44 @@ export class DecoratedAppComponent implements ReactiveState {
     this.values$.next(value);
   }
 
-    ngOnInit() {
-    this.ngSubjectInit()
+  ngOnInit() {
+    this.ngSubjectInit();
     this[OnInitSubject].complete();
   }
 
   ngOnDestroy() {
-    this.ngSubjectDestroy()
+    this.ngSubjectDestroy();
   }
 }
 ```
+
+## Decorator fix
+
+As per [stackoverflow solution suggestion](https://stackoverflow.com/questions/54892401/extending-type-when-extending-an-es6-class-with-a-typescript-decorator/55520697#55520697)
+
+```ts
+class Base {
+  tableName = 'My table name';
+  hello(name) {
+    return `hello ${name}`;
+  }
+}
+
+type Constructor<T = {}> = new (...args: any[]) => T;
+function UserFields<TBase extends Constructor>(Base: TBase) {
+  return class extends Base {
+    name: string;
+    email: string;
+  };
+}
+
+class User extends UserFields(Base) {}
+const u = new User();
+u.tableName = 'users'; // ok
+u.name = 'John'; // ok
+```
+
+You can see this pattern in action in `decorator-mixin.component.ts` under [lib/fixtures](./src/lib/fixtures)
 
 ## Development
 

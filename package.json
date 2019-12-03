@@ -68,6 +68,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.11",
     "rxjs": "^6.5.3"
   },

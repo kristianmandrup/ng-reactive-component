@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
-import { ReactiveStateComponent, IReactiveState } from '../decorator';
+import { ReactiveStateComponent } from '../decorator-mixin';
 
-@Component({
-  selector: 'app-root'
-})
-class AppComponent {
+class MyBase {}
+
+export class ExtendedAppComponent extends ReactiveStateComponent(MyBase) {
   values$ = new Subject<number>();
-  //@ts-ignore
   state = this.connect({
     count: this.values$.pipe(
       startWith(0),
@@ -19,6 +16,12 @@ class AppComponent {
   pushValue(value: number) {
     this.values$.next(value);
   }
-}
 
-export const DecoratedAppComponent = ReactiveStateComponent(AppComponent);
+  ngOnInit() {
+    this.ngSubjectInit();
+  }
+
+  ngOnDestroy() {
+    this.ngSubjectDestroy();
+  }
+}

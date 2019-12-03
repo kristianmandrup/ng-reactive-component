@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
@@ -23,6 +24,7 @@ import { ReactiveStateComponent } from '../extends';
 })
 export class ExtendedAppComponent {
   values$ = new Subject<number>();
+  //@ts-ignore
   state = this.connect({
     count: this.values$.pipe(
       startWith(0),
@@ -35,10 +37,19 @@ export class ExtendedAppComponent {
   }
 
   ngOnInit() {
+    //@ts-ignore
     this.ngSubjectInit();
   }
 
   ngOnDestroy() {
+    //@ts-ignore
     this.ngSubjectDestroy();
   }
 }
+
+@NgModule({
+  declarations: [ExtendedAppComponent],
+  exports: [],
+  providers: []
+})
+export class FeatureModule {}

@@ -2,7 +2,7 @@ import { OnInit, OnDestroy, ɵmarkDirty as markDirty } from '@angular/core';
 import { Observable, from, ReplaySubject, concat } from 'rxjs';
 import { mergeMap, tap, takeUntil } from 'rxjs/operators';
 
-export interface ReactiveState extends OnInit, OnDestroy {
+export interface IReactiveState extends OnInit, OnDestroy {
   connect<T>(sources: ObservableDictionary<T>): T;
   onInit$(): Observable<true>;
   onDestroy$(): Observable<true>;
@@ -80,7 +80,7 @@ const getterMap = {
 // }
 
 // See: https://javascriptweblog.wordpress.com/2011/05/31/a-fresh-look-at-javascript-mixins/
-const asReactive = function(): ReactiveState {
+const asReactive = function(): IReactiveState {
   Object.keys(fnMap).map(key => {
     this[key] = fnMap[key](this);
   });
@@ -108,6 +108,6 @@ const asReactive = function(): ReactiveState {
 
 export function ReactiveStateComponent<T>(
   constructorFn: Function
-): ReactiveState & T {
+): IReactiveState & T {
   return asReactive.call(constructorFn.prototype);
 }
