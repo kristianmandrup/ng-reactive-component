@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { scan, startWith } from 'rxjs/operators';
 import { ReactiveStateComponent, ReactiveState } from '../decorator';
 
-@ReactiveStateComponent
 @Component({
   selector: 'app-root',
   template: `
@@ -21,8 +20,9 @@ import { ReactiveStateComponent, ReactiveState } from '../decorator';
     </button>
   `
 })
-export class DecoratedAppComponent implements ReactiveState {
+class AppComponent {
   values$ = new Subject<number>();
+  //@ts-ignore
   state = this.connect({
     count: this.values$.pipe(
       startWith(0),
@@ -33,12 +33,6 @@ export class DecoratedAppComponent implements ReactiveState {
   pushValue(value: number) {
     this.values$.next(value);
   }
-
-  ngOnInit() {
-    this.ngSubjectInit();
-  }
-
-  ngOnDestroy() {
-    this.ngSubjectDestroy();
-  }
 }
+
+export const DecoratedAppComponent = ReactiveStateComponent(AppComponent);

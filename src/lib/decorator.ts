@@ -93,6 +93,16 @@ const asReactive = function(): ReactiveState {
 
   this[OnInitSubject] = new ReplaySubject<true>(1);
   this[OnDestroySubject] = new ReplaySubject<true>(1);
+
+  this.prototype.ngOnInit = () => {
+    //@ts-ignore
+    this.ngSubjectInit();
+  };
+
+  this.prototype.ngOnDestroy = () => {
+    //@ts-ignore
+    this.ngSubjectDestroy();
+  };
   return this;
 };
 

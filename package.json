@@ -13,18 +13,18 @@
     "url": "https://github.com/kristianmandrup"
   },
   "contributors": [
-      {
-          "name": "Mike Ryan",
-          "url": "https://medium.com/@MikeRyanDev"
-      }
+    {
+      "name": "Mike Ryan",
+      "url": "https://medium.com/@MikeRyanDev"
+    }
   ],
   "keywords": [
-      "angular",
-      "reactive",
-      "state",
-      "component",
-      "rxjs",
-      "observer"
+    "angular",
+    "reactive",
+    "state",
+    "component",
+    "rxjs",
+    "observer"
   ],
   "scripts": {
     "describe": "npm-scripts-info",
